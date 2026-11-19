@@ -2,7 +2,7 @@
 **sim85** is the custom built simulation engine for i85 Simulator & IDE. 
 The `sim` package is dedicated for the sim85 source code and its components.
 
----
+
 # Sources
 
 - `core.py` : Main execution loop and test code during development
@@ -15,7 +15,7 @@ The `sim` package is dedicated for the sim85 source code and its components.
     - `parity_table.py` : A list containing parity for all numbers in 0 to 255.
     - `eval_flags.py` : Reusable arithmetic functions for evaluation of flag states.
 
----
+
 # CPU Core
 `Core` is the class which instantiates the main microprocessor state.  
 The microprocessor state and the registers and flags are instance variables, whereas the Memory and IO Ports are
@@ -43,13 +43,14 @@ This is done to prevent off by one, errors especially during increment and decre
 
 The class `Core` is defined inside `sim/cpu.py`
 
----
+
 
 # Memory & IO
 `MemoryModule` and `IOModule` are classes which define the max addressable ranges of both I/O and Random Access memory at 256 and 65536 bytes respectively.  
 The memory storage is implemented as a `bytearray` of the required size.  
 The classes `MemoryModule` and `IOModule` are defined inside `sim/cpu.py`
----
+
+
 
 # Registers and Flags
 Registers are instance variables of the `Core` object and are standard python integers. The `simapi.py` functions `bytewrap` , `wordwrap` and `gethb` 

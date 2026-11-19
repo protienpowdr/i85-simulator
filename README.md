@@ -6,11 +6,11 @@ It is a functional simulator with support for all the 246 Documented Instruction
 Overflow and X5 Flags) for simulation accuracy. It keeps track of the total T-States in a program and calculates the total time which will be taken 
 by a real 8085 Microprocessor, however it does not simulate hardware accurate timing and runs at a much slower speed for viewing and debugging convenience.  
 
----
-# i85 IDE 
-![Image](Images/UI_DEMO.png)
 
----
+# i85 IDE 
+<imG src="Images/LOGO.png" width="720" >
+
+
 # Features
 
 - Syntax Highlighting 
@@ -21,14 +21,14 @@ by a real 8085 Microprocessor, however it does not simulate hardware accurate ti
 - Support for Infinite Loops
 - Hardware Cycle Counting
 
----
+
 # Installation Instructions
 
 1. Download the <kbd>i85-simulator-setup-x64.exe</kbd> from the releases page.
 2. Install the application using the setup file.
 3. You can use the application from the desktop shortcut.
 
----
+
 # Minimum System Requirements
 
 - Windows 10 / 11
@@ -36,7 +36,7 @@ by a real 8085 Microprocessor, however it does not simulate hardware accurate ti
 - 4GB System Memory (8GB Recommended)
 - 2GB Hard Disk Space
 
----
+
 # Licensing & Credits
 
 i85 Simulator & IDE is licensed under the [MIT-LICENSE](LICENSE) It has been completely designed and developed by
@@ -51,7 +51,6 @@ It also contains the following customTkinter addons with/without modifications:
 [CTkCodeBox &mdash; Akascape](https://github.com/Akascape/CTkCodeBox)  
 [CTkTable &mdash; Akascape](https://github.com/Akascape/CTkTable)
 
----
 
 # Documentation & Changelog
 
@@ -60,7 +59,7 @@ It also contains the following customTkinter addons with/without modifications:
 [sim85 Documentation](Documentation/Simulator%20Documentation.md)  
 [Changelog](Changelog/Changelog.md)
 
----
+
 # Inspiration
 i85 Simulator has been inspired by [GnuSim8085](https://github.com/gnusim8085/gnusim8085) and
 aims to be an alternative which fixes some technical and design aspects.
