@@ -1,5 +1,6 @@
 # i85 Simulator & IDE
-![LOGO](Images/LOGO.png)
+<imG src="Images/LOGO.png" width="480">
+
 > **i85 Simulator** is a desktop application for running and debugging 8085 Assembly Language programs.  
 
 It is a functional simulator with support for all the 246 Documented Instructions and All the 7 flags (The usual 5 flags and the undocumented 
@@ -8,7 +9,8 @@ by a real 8085 Microprocessor, however it does not simulate hardware accurate ti
 
 
 # i85 IDE 
-<imG src="Images/LOGO.png" width="720" >
+
+![GUI](Images/UI_DEMO.png)
 
 
 # Features
