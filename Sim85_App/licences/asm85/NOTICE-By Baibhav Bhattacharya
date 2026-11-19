@@ -1,0 +1,4 @@
+asm85 Copyright (c) 2016 Tom Nisbet reffered to as "assembler"
+The "assembler" has been compiled from source using MinGW32 for the i85 Simulator & IDE Project, a copy of the source code has not been provided
+for reducing dependency size, however the "assembler" has been compiled from unmodified source directly using MinGW and is distributed alongside
+its required dependencies (*.dll) files.
