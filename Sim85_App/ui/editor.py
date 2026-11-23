@@ -13,13 +13,16 @@ class AppMainEditor(CTkCodeBox):
 
         self._textbox.configure(font=ctk.CTkFont("JetBrains Mono", 16))
         self._start = "1.0"
-        self._end = "end"
+        self._end = "end-1c"
 
     def get_code(self):
-        return self.get("1.1","end")
+        return self.get(self._start, self._end)
 
     def insert_code(self,text):
         super().insert(self._start, text, None)
+
+    def delete_code(self):
+        self._textbox.delete(self._start, self._end)
 
 
 

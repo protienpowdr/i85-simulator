@@ -157,6 +157,9 @@ class MainWindow(ctk.CTk):
 
     def _initialize_function_registry(self):
         self._function_registry.add_entry(Af.RequestFileOpen,self.bridge.request_file_open)
+        self._function_registry.add_entry(Af.RequestFileNew,self.bridge.request_new_file)
+        self._function_registry.add_entry(Af.RequestFileSave,self.bridge.request_file_save)
+        self._function_registry.add_entry(Af.RequestFileSaveAs,self.bridge.request_file_saveas)
 
     def get_function(self,key):
         return self._function_registry.get_entry(key)

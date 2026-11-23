@@ -18,23 +18,31 @@ class AppToolbar(ctk.CTkFrame):
 
         self.app_icon = ctk.CTkLabel(self,text="i85",font=("ADLaM Display",14),text_color="blue")
 
-        self.new_btn = ctk.CTkButton(self,fg_color="transparent",text="New",text_color="white",font=("JetBrains Mono",12),width=20,hover_color="gray17")
-        self.open_btn = ctk.CTkButton(self,fg_color="transparent",text="Open",text_color="white",font=("JetBrains Mono",12),width=20,hover_color="gray17")
-        self.save_btn = ctk.CTkButton(self,fg_color="transparent",text="Save",text_color="white",font=("JetBrains Mono",12),width=20,hover_color="gray17")
-        self.save_as_btn = ctk.CTkButton(self,fg_color="transparent",text="Save As",text_color="white",font=("JetBrains Mono",12),width=20,hover_color="gray17")
-        self.start_button = ctk.CTkButton(self,fg_color="#487C4C",hover_color="#3D6940",text="Start",font=("JetBrains Mono",12), compound="left",width=60)
-        self.step_button = ctk.CTkButton(self,fg_color="#1f1f1f",hover_color="#242424",text="Step",font=("JetBrains Mono",12), compound="left",width=60)
-        self.reset_button = ctk.CTkButton(self,fg_color="#1f1f1f",hover_color="#242424",text="Reset",font=("JetBrains Mono",12), compound="left",width=80)
-        self.start_address = ctk.CTkEntry(self,placeholder_text="Enter starting address Eg: 0000",font=("JetBrains Mono",12),width=245,text_color="#fb660a",fg_color="#1f1f1f")
-        self.filename_display = ctk.CTkLabel(self,image=ctk.CTkImage(AppAsset.file_appicon),compound="left",text="untitled_program.asm",font=("JetBrains Mono",12))
+        self.new_btn = ctk.CTkButton(self)
+        self.open_btn = ctk.CTkButton(self)
+        self.save_btn = ctk.CTkButton(self)
+        self.save_as_btn = ctk.CTkButton(self)
+        self.start_button = ctk.CTkButton(self)
+        self.step_button = ctk.CTkButton(self)
+        self.reset_button = ctk.CTkButton(self)
+        self.start_address = ctk.CTkEntry(self)
+        self.filename_display = ctk.CTkLabel(self)
 
-        self._place_widgets()
+        self._configure_widgets()
         self._initialize_commands()
+        self._place_widgets()
+
 
 
     def _initialize_commands(self):
         open_command = self.winfo_toplevel().get_function(Af.RequestFileOpen)
+        new_command = self.winfo_toplevel().get_function(Af.RequestFileNew)
+        save_command = self.winfo_toplevel().get_function(Af.RequestFileSave)
+        save_as_command = self.winfo_toplevel().get_function(Af.RequestFileSaveAs)
         self.open_btn.configure(command=open_command)
+        self.new_btn.configure(command=new_command)
+        self.save_btn.configure(command=save_command)
+        self.save_as_btn.configure(command=save_as_command)
 
 
     def _place_widgets(self):
@@ -49,8 +57,84 @@ class AppToolbar(ctk.CTkFrame):
         self.start_button.grid(row=0, column=8, sticky="e", padx=5)
         self.reset_button.grid(row=0, column=9, sticky="w", padx=(5, 35))
 
+    def _configure_widgets(self):
+        self.new_btn.configure(
+            fg_color="transparent",
+            text="New",
+            text_color="white",
+            font=("JetBrains Mono", 12),
+            width=20,
+            hover_color="gray17"
+        )
+
+        self.open_btn.configure(
+            fg_color="transparent",
+            text="Open",
+            text_color="white",
+            font=("JetBrains Mono", 12),
+            width=20,
+            hover_color="gray17"
+        )
+
+        self.save_btn.configure(
+            fg_color="transparent",
+            text="Save",
+            text_color="white",
+            font=("JetBrains Mono", 12),
+            width=20,
+            hover_color="gray17"
+        )
+
+        self.save_as_btn.configure(
+            fg_color="transparent",
+            text="Save As",
+            text_color="white",
+            font=("JetBrains Mono", 12),
+            width=20,
+            hover_color="gray17"
+        )
+
+        self.start_button.configure(
+            fg_color="#487C4C",
+            hover_color="#3D6940",
+            text="Start",
+            font=("JetBrains Mono", 12),
+            compound="left",
+            width=60
+        )
+
+        self.step_button.configure(
+            fg_color="#1f1f1f",
+            hover_color="#242424",
+            text="Step",
+            font=("JetBrains Mono", 12),
+            compound="left",
+            width=60
+        )
+
+        self.reset_button.configure(
+            fg_color="#1f1f1f",
+            hover_color="#242424",
+            text="Reset",
+            font=("JetBrains Mono", 12),
+            compound="left",
+            width=80
+        )
+
+        self.start_address.configure(
+            placeholder_text="Enter starting address Eg: 0000",
+            font=("JetBrains Mono", 12),
+            width=245,
+            text_color="#fb660a",
+            fg_color="#1f1f1f"
+        )
+
+        self.filename_display.configure(
+            image=ctk.CTkImage(AppAsset.file_appicon),
+            compound="left",
+            text="untitled_program.asm",
+            font=("JetBrains Mono", 12)
+        )
+
     def update_filename_display(self,filename=None):
-        if filename is None:
-            self.filename_display.configure(text="Untitled_program.asm")
-        else:
-            self.filename_display.configure(text=filename)
+        self.filename_display.configure(text=filename)

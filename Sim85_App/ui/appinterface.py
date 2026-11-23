@@ -8,6 +8,9 @@ class AppWidgetType(Enum):
 
 class AppFunction(Enum):
     RequestFileOpen = auto()
+    RequestFileNew = auto()
+    RequestFileSave = auto()
+    RequestFileSaveAs = auto()
 
 class AppWidgetResolver:
     __slots__ = 'registry'
