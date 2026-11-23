@@ -1,5 +1,6 @@
 import customtkinter as ctk
 from ui.appassets import AppAsset
+from ui.appinterface import AppFunction as Af
 
 class AppToolbar(ctk.CTkFrame):
     def __init__(self, master):
@@ -27,13 +28,29 @@ class AppToolbar(ctk.CTkFrame):
         self.start_address = ctk.CTkEntry(self,placeholder_text="Enter starting address Eg: 0000",font=("JetBrains Mono",12),width=245,text_color="#fb660a",fg_color="#1f1f1f")
         self.filename_display = ctk.CTkLabel(self,image=ctk.CTkImage(AppAsset.file_appicon),compound="left",text="untitled_program.asm",font=("JetBrains Mono",12))
 
-        self.app_icon.grid(row=0,column=0,sticky="nsew",padx=5,pady=5)
-        self.new_btn.grid(row=0,column=1,sticky="nsew",padx=5)
+        self._place_widgets()
+        self._initialize_commands()
+
+
+    def _initialize_commands(self):
+        open_command = self.winfo_toplevel().get_function(Af.RequestFileOpen)
+        self.open_btn.configure(command=open_command)
+
+
+    def _place_widgets(self):
+        self.app_icon.grid(row=0, column=0, sticky="nsew", padx=5, pady=5)
+        self.new_btn.grid(row=0, column=1, sticky="nsew", padx=5)
         self.open_btn.grid(row=0, column=2, sticky="nsew", padx=5)
         self.save_btn.grid(row=0, column=3, sticky="nsew", padx=5)
         self.save_as_btn.grid(row=0, column=4, sticky="nsew", padx=5)
         self.filename_display.grid(row=0, column=5, sticky="nsew", padx=20)
-        self.start_address.grid(row=0,column=6,sticky="e",padx=5)
-        self.step_button.grid(row=0,column=7,sticky="e",padx=5)
-        self.start_button.grid(row=0,column=8,sticky="e",padx=5)
-        self.reset_button.grid(row=0, column=9, sticky="w", padx=(5,35))
+        self.start_address.grid(row=0, column=6, sticky="e", padx=5)
+        self.step_button.grid(row=0, column=7, sticky="e", padx=5)
+        self.start_button.grid(row=0, column=8, sticky="e", padx=5)
+        self.reset_button.grid(row=0, column=9, sticky="w", padx=(5, 35))
+
+    def update_filename_display(self,filename=None):
+        if filename is None:
+            self.filename_display.configure(text="Untitled_program.asm")
+        else:
+            self.filename_display.configure(text=filename)

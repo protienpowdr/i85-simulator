@@ -1,0 +1,6 @@
+MVI A , 30H
+MOV B , A
+INR B
+DCR C
+JNZ
+HLT

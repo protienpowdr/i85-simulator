@@ -5,6 +5,10 @@ from ui.toolbar import AppToolbar
 from ui.editor import AppMainEditor, AssemblerOutput, ListingView
 from ui.app_handler import AppHandler
 from ui.containers import WidgetContainer
+from ui.appinterface import AppWidgetResolver, AppFunctionResolver
+from ui.appinterface import AppFunction as Af
+from ui.appinterface import AppWidgetType as Awt
+from ui.uibridge import UiBridge
 
 import customtkinter as ctk
 
@@ -13,8 +17,25 @@ class MainWindow(ctk.CTk):
     def __init__(self):
         super().__init__()
 
+        # Window Initialization
+        self._initialize_window()
+        self._set_window_styles()
+
         # Font Configuration
         AppAsset.loadFonts()
+
+
+        # Widget & Function Registry
+        self._function_registry = AppFunctionResolver()
+        self._widget_registry = AppWidgetResolver()
+
+        # UiBridge
+        self.bridge = UiBridge(self)
+        self._initialize_function_registry()
+
+
+
+
 
         # Main Widget Container
         self.wdc = WidgetContainer(self)
@@ -35,12 +56,12 @@ class MainWindow(ctk.CTk):
         self._last_size = ()
 
 
-        # Initialization
-        self._initialize_window()
+        # Widget Initialization
         self._configure_gridlayout()
         self._configure_widget_placement()
-        self._set_window_styles()
+        self._initialize_widget_registry()
         self._initialize_bindings()
+
 
 
     """
@@ -124,3 +145,22 @@ class MainWindow(ctk.CTk):
             self.wdc.grid(row=0,column=0,sticky="nsew")
 
         self._resize_timer = self.after(50, end_resizing)
+
+
+    """
+         Initializing the widget and function registry for the RRP Model
+    """
+
+    def _initialize_widget_registry(self):
+        self._widget_registry.add_entry(Awt.SourceEditor,self.Editor)
+        self._widget_registry.add_entry(Awt.ToolBar,self.Toolbar)
+
+    def _initialize_function_registry(self):
+        self._function_registry.add_entry(Af.RequestFileOpen,self.bridge.request_file_open)
+
+    def get_function(self,key):
+        return self._function_registry.get_entry(key)
+
+
+    def get_widget(self,key):
+        return self._widget_registry.get_entry(key)

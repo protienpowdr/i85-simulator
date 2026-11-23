@@ -8,10 +8,18 @@ class AppMainEditor(CTkCodeBox):
         language=I85Lexer,
         font=ctk.CTkFont("JetBrains Mono",16),
         theme="fruity",
-        menu=True,
+        menu=False,
         undo=True,)
 
         self._textbox.configure(font=ctk.CTkFont("JetBrains Mono", 16))
+        self._start = "1.0"
+        self._end = "end"
+
+    def get_code(self):
+        return self.get("1.1","end")
+
+    def insert_code(self,text):
+        super().insert(self._start, text, None)
 
 
 
