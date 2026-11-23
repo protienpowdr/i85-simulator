@@ -1,5 +1,5 @@
 # i85 Simulator & IDE
-<imG src="Images/LOGO.png" width="480">
+<imG src="Images/LOGO.png" width="1080">
 
 > **i85 Simulator** is a desktop application for running and debugging 8085 Assembly Language programs.  
 
