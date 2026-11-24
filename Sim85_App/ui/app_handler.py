@@ -15,7 +15,7 @@ class FileHandler:
         self.assembler_binary = "asm85.exe"
         self.newfile_name = "untitled_program.asm"
         self.current_file_path = None
-        self.is_file_opened = True
+        self.is_file_opened = False
 
     def open_source_file(self,path):
         self.current_file_path = path
@@ -44,6 +44,10 @@ class FileHandler:
             return Path(self.current_file_path).name
         else:
             return self.newfile_name
+
+    def new_file_opened(self):
+        self.is_file_opened = False
+        self.current_file_path = None
 
 
 

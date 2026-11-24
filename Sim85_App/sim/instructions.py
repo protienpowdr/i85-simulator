@@ -36,3 +36,15 @@ InstructionTable[Op.RLC] = Instruction(fn.exec_rlc, 1 , 4)              # RLC
 InstructionTable[Op.DSUB] = Instruction(fn.exec_undefined , 1 , 10)     # DSUB
 
 InstructionTable[Op.DADB] = Instruction(fn.exec_dadb , 1 , 10)          # DAD B
+
+InstructionTable[Op.LDAXB] = Instruction(fn.exec_ldaxb, 1 , 7)          # LDAX B
+
+InstructionTable[Op.DCXB] = Instruction(fn.exec_dcxb , 1 , 6)           # DCX B
+
+InstructionTable[Op.INRC] = Instruction(fn.exec_inrc , 1 , 4)           # INR C
+
+InstructionTable[Op.DCRC] = Instruction(fn.exec_dcrc , 1 , 4)           # DCR C
+
+InstructionTable[Op.MVIC] = Instruction(fn.exec_mvic , 2 , 7)           # MVI C
+
+InstructionTable[Op.RRC] = Instruction(fn.exec_rrc , 1 , 4)             # RRC

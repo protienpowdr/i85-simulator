@@ -124,7 +124,7 @@ class AppToolbar(ctk.CTkFrame):
         self.start_address.configure(
             placeholder_text="Enter starting address Eg: 0000",
             font=("JetBrains Mono", 12),
-            width=245,
+            width=240,
             text_color="#fb660a",
             fg_color="#1f1f1f"
         )

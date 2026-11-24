@@ -12,6 +12,7 @@ class AppAsset():
     file_appicon = _Image.open(path_image_fileicon)
 
 
+
     @classmethod
     def loadFonts(cls):
         _ctk.FontManager.load_font(cls.path_font_monospace)

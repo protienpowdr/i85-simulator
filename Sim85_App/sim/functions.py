@@ -39,6 +39,7 @@ def exec_inxb(args : ExecArgs):
     num += 1
     args.cpu.rb = gethb(num)
     args.cpu.rc = bytewrap(num)
+    args.cpu.flag_k(ev.check_x5_on_add16(num))
 
     return_obj.add_event(InstructionSuccessful,ContinueExecution,RegisterUpdate)
     return return_obj
@@ -50,7 +51,7 @@ def exec_inrb(args : ExecArgs):
     args.cpu.rb = Core.increment_reg(args.cpu.rb)
 
     args.cpu.flag_v(ev.check_overflow_add(temp, 1, args.cpu.rb))
-    args.cpu.flag_ac(ev.check_auxiliary(temp, 1, args.cpu.rb))
+    args.cpu.flag_ac(ev.check_auxiliary_add(temp, 1, args.cpu.rb))
     args.cpu.flag_p(ev.check_parity(args.cpu.rb))
     args.cpu.flag_z(ev.check_zero(args.cpu.rb))
     args.cpu.flag_s(ev.check_sign(args.cpu.rb))
@@ -61,12 +62,15 @@ def exec_inrb(args : ExecArgs):
     return return_obj
 
 def exec_dcrb(args : ExecArgs):
+    """
+        The 8085 Internally uses 2's Complement Subtraction,
+        However I'm using sub methods for flags for simplicity
+    """
     return_obj = ExecReturn()
-    args.cpu.flag_v(ev.check_overflow_sub(args.cpu.rb, 1, (args.cpu.rb - 1)))
-    args.cpu.flag_ac(ev.check_auxiliary(args.cpu.rb, 1, (args.cpu.rb - 1)))
-
+    temp = args.cpu.rb
     args.cpu.rb = Core.decrement_reg(args.cpu.rb)
-
+    args.cpu.flag_v(ev.check_overflow_sub(temp, 1, args.cpu.rb))
+    args.cpu.flag_ac(ev.check_auxiliary_sub(temp, 1, args.cpu.rb))
     args.cpu.flag_p(ev.check_parity(args.cpu.rb))
     args.cpu.flag_z(ev.check_zero(args.cpu.rb))
     args.cpu.flag_s(ev.check_sign(args.cpu.rb))
@@ -109,6 +113,81 @@ def exec_dadb(args : ExecArgs):
 
     args.cpu.rh = gethb(result)
     args.cpu.rl = bytewrap(result)
+
+    return_obj.add_event(InstructionSuccessful,ContinueExecution,RegisterUpdate)
+    return return_obj
+
+def exec_ldaxb(args: ExecArgs):
+    return_obj = ExecReturn()
+    args.cpu.mar = getword(lb=args.cpu.rc,hb=args.cpu.rb)
+    Core.memory_read(args.cpu)
+    args.cpu.acc = args.cpu.mdr
+    return_obj.add_event(InstructionSuccessful,ContinueExecution,RegisterUpdate)
+    return return_obj
+
+def exec_dcxb(args : ExecArgs):
+    return_obj = ExecReturn()
+    num = getword(lb=args.cpu.rc, hb=args.cpu.rb)
+    num -= 1
+    args.cpu.rb = gethb(num)
+    args.cpu.rc = bytewrap(num)
+    args.cpu.flag_k(ev.check_x5_on_sub16(num))
+
+    return_obj.add_event(InstructionSuccessful, ContinueExecution, RegisterUpdate)
+    return return_obj
+
+def exec_inrc(args : ExecArgs):
+    return_obj = ExecReturn()
+
+    temp = args.cpu.rc
+    args.cpu.rc = Core.increment_reg(args.cpu.rc)
+
+    args.cpu.flag_v(ev.check_overflow_add(temp, 1, args.cpu.rc))
+    args.cpu.flag_ac(ev.check_auxiliary_add(temp, 1, args.cpu.rc))
+    args.cpu.flag_p(ev.check_parity(args.cpu.rc))
+    args.cpu.flag_z(ev.check_zero(args.cpu.rc))
+    args.cpu.flag_s(ev.check_sign(args.cpu.rc))
+    args.cpu.flag_k(ev.check_x5(sign_flag=args.cpu.getflag(Flags.SIGN,as_int=True),
+                                overflow_flag=args.cpu.getflag(Flags.XV,as_int=True)))
+
+    return_obj.add_event(InstructionSuccessful,ContinueExecution,RegisterUpdate)
+    return return_obj
+
+def exec_dcrc(args : ExecArgs):
+    """
+        The 8085 Internally uses 2's Complement Subtraction,
+        However I'm using sub methods for flags for simplicity
+    """
+    return_obj = ExecReturn()
+    temp = args.cpu.rc
+    args.cpu.rc = Core.decrement_reg(args.cpu.rc)
+    args.cpu.flag_v(ev.check_overflow_sub(temp, 1, args.cpu.rc))
+    args.cpu.flag_ac(ev.check_auxiliary_sub(temp, 1, args.cpu.rc))
+    args.cpu.flag_p(ev.check_parity(args.cpu.rc))
+    args.cpu.flag_z(ev.check_zero(args.cpu.rc))
+    args.cpu.flag_s(ev.check_sign(args.cpu.rc))
+    args.cpu.flag_k(ev.check_x5(sign_flag=args.cpu.getflag(Flags.SIGN,as_int=True),
+                                overflow_flag=args.cpu.getflag(Flags.XV,as_int=True)))
+
+    return_obj.add_event(InstructionSuccessful, ContinueExecution, RegisterUpdate)
+    return return_obj
+
+def exec_mvic(args : ExecArgs):
+    return_obj = ExecReturn()
+    args.cpu.rc = bytewrap(args.arg_sample[0])
+
+    return_obj.add_event(InstructionSuccessful,ContinueExecution,RegisterUpdate)
+    return return_obj
+
+def exec_rrc(args : ExecArgs):
+    return_obj = ExecReturn()
+    cy_value = bytewrap(args.cpu.acc & 1)
+    args.cpu.acc = (args.cpu.acc >> 1)  | (cy_value << 7)
+    args.cpu.flag_v(State.RESET)
+    if cy_value:
+        args.cpu.flag_cy(State.SET)
+    else:
+        args.cpu.flag_cy(State.RESET)
 
     return_obj.add_event(InstructionSuccessful,ContinueExecution,RegisterUpdate)
     return return_obj

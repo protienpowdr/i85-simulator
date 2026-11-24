@@ -1,6 +1,7 @@
-# i85 Simulator & IDE
-<imG src="Images/LOGO.png" width="1080">
+> [!WARNING]
+> **i85 Simulator & IDE is in development** and no stable release has been published.
 
+# i85 Simulator & IDE
 > **i85 Simulator** is a desktop application for running and debugging 8085 Assembly Language programs.  
 
 It is a functional simulator with support for all the 246 Documented Instructions and All the 7 flags (The usual 5 flags and the undocumented 
@@ -66,3 +67,5 @@ It also contains the following customTkinter addons with/without modifications:
 i85 Simulator has been inspired by [GnuSim8085](https://github.com/gnusim8085/gnusim8085) and
 aims to be an alternative which fixes some technical and design aspects.
 
+---
+<imG src="Images/LOGO.png" width="1080">

@@ -12,7 +12,7 @@ The following packages are used.
 - tklinenums
 - CTkCodeBox (Modified to support dynamic sizing of line numbers)
 - CTkTable
-- pywinstyles (Unused Dependency, will be removed later)
+
 
 ---
 # External Binaries

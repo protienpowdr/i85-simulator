@@ -8,7 +8,7 @@ class UiBridge:
         self.handler =AppHandler()
 
     def request_file_open(self):
-        path = fd.askopenfilename()
+        path = fd.askopenfilename(title="Open File",filetypes=[("8085 Assembly Source","*.asm")],defaultextension=".asm")
         if not path:
             return
         file = self.handler.file_handler.open_source_file(path)
@@ -25,20 +25,20 @@ class UiBridge:
         toolbar = self.window.get_widget(Awt.ToolBar)
         editor.delete_code()
         toolbar.update_filename_display(self.handler.file_handler.newfile_name)
-        self.handler.file_handler.current_file_path = None
-        self.handler.file_handler.is_file_opened = False
+        self.handler.file_handler.new_file_opened()
 
     def request_file_save(self):
         toolbar = self.window.get_widget(Awt.ToolBar)
         editor = self.window.get_widget(Awt.SourceEditor)
         data = editor.get_code()
         if not self.handler.file_handler.save_file(data):
-            path = fd.asksaveasfilename()
+            path = fd.asksaveasfilename(title="Save File",filetypes=[("8085 Assembly Source","*.asm")],defaultextension=".asm")
+            if not path: return
             self.handler.file_handler.save_as(data,path)
             toolbar.update_filename_display(self.handler.file_handler.get_current_filename())
 
     def request_file_saveas(self):
-        path = fd.asksaveasfilename()
+        path = fd.asksaveasfilename(title="Save File As",filetypes=[("8085 Assembly Source","*.asm")],defaultextension=".asm")
         if not path:
             return
 

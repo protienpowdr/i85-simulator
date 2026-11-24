@@ -28,10 +28,17 @@ def check_zero(result):
 
 
 
-def check_auxiliary(a,b,result):
+def check_auxiliary_add(a,b,result):
     if (a ^ b ^ result) & 0x10:
         return State.SET
     return State.RESET
+
+def check_auxiliary_sub(a,b,result):
+    comp2_b = bytewrap(~b)
+    if (a ^ comp2_b ^ result) & 0x10:
+        return State.SET
+    return State.RESET
+
 
 
 
@@ -68,5 +75,16 @@ def check_overflow_add16(a,b,result):
 
 def check_overflow_sub16(a,b,result):
     if ( a ^ b) & (a ^ result) & 0x8000:
+        return State.SET
+    return State.RESET
+
+
+def check_x5_on_add16(result):
+    if result > 0xffff:
+        return State.SET
+    return State.RESET
+
+def check_x5_on_sub16(result):
+    if result < 0:
         return State.SET
     return State.RESET

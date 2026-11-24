@@ -4,6 +4,7 @@ All notable changes to i85 Simulator & IDE are listed here.
 
 ### 12-11-2026 &mdash; Baibhav Bhattacharya
 
+---
 - Initial Project Structure
 - `Ui` : Added `Toolbar` , `Navbar` , `Sidebar` 
 - `Ui` : Integrated fonts and images
@@ -12,6 +13,7 @@ All notable changes to i85 Simulator & IDE are listed here.
 
 ### 13-11-2026 &mdash; Baibhav Bhattacharya
 
+---
 - `Ui` : Added Modified CTkCodeBox based code editor
 - `Ui` : Added Hardware Panel , Register and Flag Views
 - `Ui` : Initial design for Memory and Port View
@@ -20,6 +22,7 @@ All notable changes to i85 Simulator & IDE are listed here.
 
 ### 15-11-2026 &mdash; Baibhav Bhattacharya
 
+---
 - `Ui` : Added Memory & Register View
 - `Simulator` : Designed Initial Structure
 - `Simulator` : Class Definitions of CPU, Memory, IO and basic helper functions
@@ -28,6 +31,7 @@ All notable changes to i85 Simulator & IDE are listed here.
 
 ### 16-11-2026 &mdash; Baibhav Bhattacharya
 
+---
 - `Simulator` : Implemented Instruction Table
 - `Simulator` : Added support for `NOP` , `LXIB` , `STAXB` , `INXB` , `INRB` and `DCRB` instructions
 - `Simulator` : Added flag evaluation functions for `CY`, `Z`, `P`, `S` and `AC` flags.
@@ -35,6 +39,7 @@ All notable changes to i85 Simulator & IDE are listed here.
 
 ### 17-11-2026 &mdash; Baibhav Bhattacharya
 
+---
 - `Ui` : Added Listing View
 - `Ui` : Fixed grid layouts and code organization
 - `Simulator` : Added support for `INXB`, `RLC` instructions and flag evaluation functions for
@@ -43,6 +48,7 @@ All notable changes to i85 Simulator & IDE are listed here.
 
 ### 18-11-2026 &mdash; Baibhav Bhattacharya
 
+---
 - `Ui` : Added listner function to hide the application layout during resize to significantly 
 improve animation speed while resizing. 
 - `Ui` : Added main container for all widgets.
@@ -52,3 +58,13 @@ like `DSUB` using the existing Event-Component Model
 - `Docs`  Added `README`, `LICENSE` , `Changelogs` and `Documentations` 
 - `dvcs`  Initial push on remote github repository and git integration.
 
+
+### 24-11-2026 &mdash; Baibhav Bhattacharya
+
+- `ui` : Added RRP Architecture.
+- `ui` : Added File I/O Operations.
+- `ui` : Integrated `FileHandler`
+- `ui` : Fixed CTkCodeBox Errors.
+- `Simulator` : Added support for `LDAX B` , `DCX B` , `INR C` , `DCR C`,
+`MVI C`, `RRC`
+- `Simulator` : Refactored `INR B` and fixed some errors.
