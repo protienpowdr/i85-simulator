@@ -44,7 +44,6 @@ by a real 8085 Microprocessor, however it does not simulate hardware accurate ti
 
 i85 Simulator & IDE is licensed under the [MIT-LICENSE](LICENSE) It has been completely designed and developed by
 **Baibhav Bhattacharya**  
-i85 simulator & IDE inclu[Github](https://github.com/TomNisbet/asm85)  
 
 i85 Simulator uses asm85 as its assembler.   
 [asm85 &mdash; TomNisbet](https://github.com/TomNisbet/asm85)  
