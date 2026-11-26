@@ -61,6 +61,7 @@ like `DSUB` using the existing Event-Component Model
 
 ### 24-11-2026 &mdash; Baibhav Bhattacharya
 
+---
 - `ui` : Added RRP Architecture.
 - `ui` : Added File I/O Operations.
 - `ui` : Integrated `FileHandler`
@@ -68,3 +69,10 @@ like `DSUB` using the existing Event-Component Model
 - `Simulator` : Added support for `LDAX B` , `DCX B` , `INR C` , `DCR C`,
 `MVI C`, `RRC`
 - `Simulator` : Refactored `INR B` and fixed some errors.
+
+### 26-11-2026 &mdash; Baibhav Bhattacharya
+
+--- 
+- `Simulator` : Added support for `LXI D` , `STAX D` , `INX D`, `INR D`, `DCR D` and `MVI D` instructions.
+- `ui` : Added total cycles view.
+- Planned on adding dual appearance mode support.

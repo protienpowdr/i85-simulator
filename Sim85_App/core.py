@@ -8,16 +8,17 @@ import time
 c85 = Core()
 try:
 
-    print("RRC Test")
-    c85.acc = 0x02
-    print("Value of Acc before RRC", hex(c85.acc))
+    print("LXI D TEST")
+    c85.rb = 0x00
+    c85.rc = 0x00
+    print("Value of D/E before LXIB", hex(c85.rd), hex(c85.re))
     start = time.perf_counter_ns()
-    Result = InstructionTable[Op.RRC].function(ExecArgs(cpu=c85,arg_sample=None))
+    Result = InstructionTable[Op.LXID].function(ExecArgs(cpu=c85,arg_sample=[0x56,0x25]))
     end = time.perf_counter_ns()
 
 
     if InstructionSuccessful in Result.events:
-        print("Value of Acc after RRC", hex(c85.acc))
+        print("Value of D/E before LXIB", hex(c85.rd), hex(c85.re))
         print("Flag CY", c85.getflag(Flags.CARRY))
         print("Flag P", c85.getflag(Flags.PARITY))
         print("Flag V", c85.getflag(Flags.XV))

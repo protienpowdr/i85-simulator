@@ -48,3 +48,18 @@ InstructionTable[Op.DCRC] = Instruction(fn.exec_dcrc , 1 , 4)           # DCR C
 InstructionTable[Op.MVIC] = Instruction(fn.exec_mvic , 2 , 7)           # MVI C
 
 InstructionTable[Op.RRC] = Instruction(fn.exec_rrc , 1 , 4)             # RRC
+
+InstructionTable[Op.ARHL] = Instruction(fn.exec_undefined,1,7)          # ARHL
+
+InstructionTable[Op.LXID] = Instruction(fn.exec_lxid , 3, 10)           # LXI D
+
+InstructionTable[Op.STAXD] = Instruction(fn.exec_staxd , 1 , 7)         # STAX D
+
+InstructionTable[Op.INXD] = Instruction(fn.exec_inxd , 1 , 4)           # INX D
+
+InstructionTable[Op.INRD] = Instruction(fn.exec_inrd , 1 , 4)           # INR D
+
+InstructionTable[Op.DCRD] = Instruction(fn.exec_dcrd , 1 , 4)           # DCR D
+
+InstructionTable[Op.MVID] = Instruction(fn.exec_mvid , 2 , 7)           # MVI D
+

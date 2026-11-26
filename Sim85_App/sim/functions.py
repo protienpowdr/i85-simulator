@@ -12,15 +12,15 @@ def exec_undefined(args : ExecArgs):
     return_obj.add_event(NoOperation,UndocumentedOpcode,ContinueExecution)
     return return_obj
 
-def exec_lxib(args : ExecArgs):
-    return_obj = ExecReturn()
-    args.cpu.mar = getword(lb=args.arg_sample[0],hb=args.arg_sample[1])
-    Core.memory_read(args.cpu)
-    args.cpu.rc = args.cpu.mdr
-    args.cpu.increment_mar()
-    Core.memory_read(args.cpu)
-    args.cpu.rb = args.cpu.mdr
 
+
+def exec_lxib(args : ExecArgs):
+    """
+         arg_sample should store the lower order byte first
+    """
+    return_obj = ExecReturn()
+    args.cpu.rc = args.arg_sample[0]
+    args.cpu.rb = args.arg_sample[1]
     return_obj.add_event(InstructionSuccessful,ContinueExecution,RegisterUpdate)
     return return_obj
 
@@ -136,6 +136,9 @@ def exec_dcxb(args : ExecArgs):
     return_obj.add_event(InstructionSuccessful, ContinueExecution, RegisterUpdate)
     return return_obj
 
+
+
+
 def exec_inrc(args : ExecArgs):
     return_obj = ExecReturn()
 
@@ -191,3 +194,79 @@ def exec_rrc(args : ExecArgs):
 
     return_obj.add_event(InstructionSuccessful,ContinueExecution,RegisterUpdate)
     return return_obj
+
+
+
+def exec_lxid(args : ExecArgs):
+    """
+        arg_sample should store the lower order byte first
+    """
+    return_obj = ExecReturn()
+    args.cpu.re = args.arg_sample[0]
+    args.cpu.rd = args.arg_sample[1]
+    return_obj.add_event(InstructionSuccessful,ContinueExecution,RegisterUpdate)
+    return return_obj
+
+def exec_staxd(args : ExecArgs):
+    return_obj = ExecReturn()
+    args.cpu.mar = getword(lb=args.cpu.re,hb=args.cpu.rd)
+    args.cpu.mdr =  args.cpu.acc
+    Core.memory_write(args.cpu)
+
+    return_obj.add_event(InstructionSuccessful,ContinueExecution,MemoryUpdate)
+    return return_obj
+
+def exec_inxd(args : ExecArgs):
+    return_obj = ExecReturn()
+    num = getword(lb=args.cpu.re, hb=args.cpu.rd)
+    num += 1
+    args.cpu.rd = gethb(num)
+    args.cpu.re = bytewrap(num)
+    args.cpu.flag_k(ev.check_x5_on_add16(num))
+
+    return_obj.add_event(InstructionSuccessful, ContinueExecution, RegisterUpdate)
+    return return_obj
+
+def exec_inrd(args : ExecArgs):
+    return_obj = ExecReturn()
+
+    temp = args.cpu.rd
+    args.cpu.rd = Core.increment_reg(args.cpu.rd)
+
+    args.cpu.flag_v(ev.check_overflow_add(temp, 1, args.cpu.rd))
+    args.cpu.flag_ac(ev.check_auxiliary_add(temp, 1, args.cpu.rd))
+    args.cpu.flag_p(ev.check_parity(args.cpu.rd))
+    args.cpu.flag_z(ev.check_zero(args.cpu.rd))
+    args.cpu.flag_s(ev.check_sign(args.cpu.rd))
+    args.cpu.flag_k(ev.check_x5(sign_flag=args.cpu.getflag(Flags.SIGN,as_int=True),
+                                overflow_flag=args.cpu.getflag(Flags.XV,as_int=True)))
+
+    return_obj.add_event(InstructionSuccessful,ContinueExecution,RegisterUpdate)
+    return return_obj
+
+def exec_dcrd(args : ExecArgs):
+    """
+        The 8085 Internally uses 2's Complement Subtraction,
+        However I'm using sub methods for flags for simplicity
+    """
+    return_obj = ExecReturn()
+    temp = args.cpu.rd
+    args.cpu.rd = Core.decrement_reg(args.cpu.rd)
+    args.cpu.flag_v(ev.check_overflow_sub(temp, 1, args.cpu.rd))
+    args.cpu.flag_ac(ev.check_auxiliary_sub(temp, 1, args.cpu.rd))
+    args.cpu.flag_p(ev.check_parity(args.cpu.rd))
+    args.cpu.flag_z(ev.check_zero(args.cpu.rd))
+    args.cpu.flag_s(ev.check_sign(args.cpu.rd))
+    args.cpu.flag_k(ev.check_x5(sign_flag=args.cpu.getflag(Flags.SIGN,as_int=True),
+                                overflow_flag=args.cpu.getflag(Flags.XV,as_int=True)))
+
+    return_obj.add_event(InstructionSuccessful, ContinueExecution, RegisterUpdate)
+    return return_obj
+
+def exec_mvid(args : ExecArgs):
+    return_obj = ExecReturn()
+    args.cpu.rc = bytewrap(args.arg_sample[0])
+
+    return_obj.add_event(InstructionSuccessful,ContinueExecution,RegisterUpdate)
+    return return_obj
+
