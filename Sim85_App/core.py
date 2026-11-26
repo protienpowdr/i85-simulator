@@ -9,16 +9,15 @@ c85 = Core()
 try:
 
     print("LXI D TEST")
-    c85.rb = 0x00
-    c85.rc = 0x00
-    print("Value of D/E before LXIB", hex(c85.rd), hex(c85.re))
+    c85.rc = 0x80
+    print("Value of C before DCRC", hex(c85.rc))
     start = time.perf_counter_ns()
-    Result = InstructionTable[Op.LXID].function(ExecArgs(cpu=c85,arg_sample=[0x56,0x25]))
+    Result = InstructionTable[Op.DCRC].function(ExecArgs(cpu=c85,arg_sample=None))
     end = time.perf_counter_ns()
 
 
     if InstructionSuccessful in Result.events:
-        print("Value of D/E before LXIB", hex(c85.rd), hex(c85.re))
+        print("Value of C after DCRC", hex(c85.rc))
         print("Flag CY", c85.getflag(Flags.CARRY))
         print("Flag P", c85.getflag(Flags.PARITY))
         print("Flag V", c85.getflag(Flags.XV))

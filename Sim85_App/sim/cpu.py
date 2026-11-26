@@ -76,32 +76,32 @@ class Core:
 
     @classmethod
     def io_read(cls,obj):
-        obj.mdr = bytewrap(cls.ports.data[wordwrap(obj.mar)])
+        obj.mdr = bytewrap(cls.ports.data[bytewrap(obj.mar)])
 
     @classmethod
     def io_write(cls,obj):
-        cls.ram.data[wordwrap(obj.mar)] = obj.mdr
+        cls.ports.data[bytewrap(obj.mar)] = obj.mdr
 
 
 
     # 16 Bit Register Increment & Decrement
     def increment_pc(self,val = 1 ):
-        self.pc += val
+        self.pc = wordwrap(self.pc + val)
 
     def decrement_pc(self,val = 1 ):
-        self.pc -= val
+        self.pc = wordwrap(self.pc - val)
 
     def increment_sp(self,val = 1 ):
-        self.sp += val
+        self.sp = wordwrap(self.sp + val)
 
     def decrement_sp(self,val = 1 ):
-        self.sp -= val
+        self.sp = wordwrap(self.sp - val)
 
     def increment_mar(self,val = 1 ):
-        self.mar += val
+        self.mar = wordwrap(self.mar + val)
 
     def decrement_mar(self,val = 1 ):
-        self.mar -= val
+        self.mar = wordwrap(self.mar - val)
 
 
 
